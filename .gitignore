@@ -23,3 +23,5 @@ UserSettings/
 *.tmp
 *.user
 *.sln.docstates
+
+.vs/

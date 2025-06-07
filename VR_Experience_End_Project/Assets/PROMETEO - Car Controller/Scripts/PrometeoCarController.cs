@@ -19,7 +19,7 @@ public class PrometeoCarController : MonoBehaviour
 
     //CAR SETUP
 
-      [Space(20)]
+    
       //[Header("CAR SETUP")]
       [Space(10)]
       [Range(20, 190)]
@@ -86,7 +86,7 @@ public class PrometeoCarController : MonoBehaviour
 
     //SPEED TEXT (UI)
 
-      [Space(20)]
+    
       //[Header("UI")]
       [Space(10)]
       //The following variable lets you to set up a UI text to display the speed of your car.
@@ -106,12 +106,12 @@ public class PrometeoCarController : MonoBehaviour
 
     //CONTROLS
 
-      [Space(20)]
-      //[Header("CONTROLS")]
+   
       [Space(10)]
       //The following variables lets you to set up touch controls for mobile devices.
       public bool useTouchControls = false;
-      public GameObject throttleButton;
+	  
+	    public GameObject throttleButton;
       PrometeoTouchInput throttlePTI;
       public GameObject reverseButton;
       PrometeoTouchInput reversePTI;
@@ -122,9 +122,15 @@ public class PrometeoCarController : MonoBehaviour
       public GameObject handbrakeButton;
       PrometeoTouchInput handbrakePTI;
 
-    //CAR DATA
 
-      [HideInInspector]
+
+	[Header("ML-Agent Input")]
+	public bool useMLAgentInput = true;
+	[Space(10)]
+	
+	//CAR DATA
+
+	[HideInInspector]
       public float carSpeed; // Used to store the speed of the car.
       [HideInInspector]
       public bool isDrifting; // Used to know whether the car is drifting or not.
@@ -157,7 +163,8 @@ public class PrometeoCarController : MonoBehaviour
       float RLWextremumSlip;
       WheelFrictionCurve RRwheelFriction;
       float RRWextremumSlip;
-
+   
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -265,6 +272,11 @@ public class PrometeoCarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (useMLAgentInput)
+        {
+            AnimateWheelMeshes();
+            return;
+        }
 
       //CAR DATA
 
@@ -497,8 +509,8 @@ public class PrometeoCarController : MonoBehaviour
 
     // This method apply positive torque to the wheels in order to go forward.
     public void GoForward(){
-      //If the forces aplied to the rigidbody in the 'x' asis are greater than
-      //3f, it means that the car is losing traction, then the car will start emitting particle systems.
+      Debug.Log($"GoForward called - Current throttleAxis: {throttleAxis}");
+      
       if(Mathf.Abs(localVelocityX) > 2.5f){
         isDrifting = true;
         DriftCarPS();
@@ -518,6 +530,7 @@ public class PrometeoCarController : MonoBehaviour
         Brakes();
       }else{
         if(Mathf.RoundToInt(carSpeed) < maxSpeed){
+          Debug.Log($"Applying motor torque: {(accelerationMultiplier * 50f) * throttleAxis}");
           //Apply positive torque in all wheels to go forward if maxSpeed has not been reached.
           frontLeftCollider.brakeTorque = 0;
           frontLeftCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
@@ -528,6 +541,7 @@ public class PrometeoCarController : MonoBehaviour
           rearRightCollider.brakeTorque = 0;
           rearRightCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
         }else {
+          Debug.Log("Max speed reached, stopping motor torque");
           // If the maxSpeed has been reached, then stop applying torque to the wheels.
           // IMPORTANT: The maxSpeed variable should be considered as an approximation; the speed of the car
           // could be a bit higher than expected.
@@ -770,5 +784,55 @@ public class PrometeoCarController : MonoBehaviour
         driftingAxis = 0f;
       }
     }
+
+    public void SetInputs(float throttle, float steering, float brake)
+    {
+        Debug.Log($"SetInputs called - Throttle: {throttle}, Steering: {steering}, Brake: {brake}");
+        
+        // Throttle
+        if (throttle > 0.1f)
+        {
+            Debug.Log("Attempting to go forward");
+            throttleAxis = Mathf.Clamp(throttle, 0f, 1f);
+            GoForward();
+        }
+        else if (throttle < -0.1f)
+        {
+            Debug.Log("Attempting to go reverse");
+            throttleAxis = Mathf.Clamp(throttle, -1f, 0f);
+            GoReverse();
+        }
+        else
+        {
+            Debug.Log("Throttle off");
+            throttleAxis = 0f;
+            ThrottleOff();
+        }
+
+        // Sturen
+        if (steering < -0.1f)
+        {
+            steeringAxis = Mathf.Clamp(steering, -1f, 0f);
+            TurnLeft();
+        }
+        else if (steering > 0.1f)
+        {
+            steeringAxis = Mathf.Clamp(steering, 0f, 1f);
+            TurnRight();
+        }
+        else
+        {
+            steeringAxis = 0f;
+            ResetSteeringAngle();
+        }
+
+        // Remmen
+        if (brake > 0.1f)
+        {
+            brakeForce = Mathf.RoundToInt(brake * 600f); // 600 is max remkracht
+            Brakes();
+        }
+    }
+
 
 }
