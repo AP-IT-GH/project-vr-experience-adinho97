@@ -114,7 +114,11 @@ Het project bestaat uit verschillende kerncomponenten:
 
 ### Afwijkingen t.o.v. one-pager
 
-_(Nog niet van toepassing – aanvullen indien het eindproduct afwijkt van plan)_
+- Extra trainingstijd nodig voor AI-agents (ongeveer 2x langer dan gepland)
+- Toegevoegd: visuele feedback voor speler over AI-prestaties
+- Vereenvoudigd: aantal AI-tegenstanders van 5 naar 2 voor betere prestaties
+- Aangepast: moeilijkheidsgraad van het circuit voor betere leereffecten
+- Extra feature: ghost car mode voor training en vergelijking
 
 ## Resultaten
 
@@ -125,18 +129,29 @@ _(Nog niet van toepassing – aanvullen indien het eindproduct afwijkt van plan)
 
 ### Beschrijving van de grafieken
 
-_(Bondige uitleg over verloop reward, loss, enz.)_
+De eerste grafiek, 'Environment/Cumulative Reward', toont de cumulatieve beloning die de AI-agent ontvangt over de trainingsperiodes. Een stijgende lijn in deze grafiek duidt op succesvoller gedrag van de agent, wat betekent dat de agent beter wordt in het voltooien van de race en het behalen van beloningen, zoals het passeren van checkpoints en het handhaven van een hoge snelheid. Pieken en dalen kunnen wijzen op variaties in de moeilijkheidsgraad van de episodes of tijdelijke suboptimale gedragingen.
+
+De tweede grafiek, 'Environment/Episode Length', toont de duur van elke trainingssessie of episode. Een kortere episode lengte kan duiden op sneller falen van de agent (bijvoorbeeld door crashes of van de baan raken) aan het begin van de training, terwijl een toenemende lengte aangeeft dat de agent langer in leven blijft en meer acties onderneemt binnen de omgeving. Naarmate de agent beter wordt, kan de episode lengte stabiliseren op het moment dat de agent de taak succesvol en efficiënt voltooit (zoals een ronde uitrijden).
+
+De derde grafiek, 'Losses/Policy Loss', geeft de verandering in de beleidsverliesfunctie weer. Een dalende lijn in deze grafiek is doorgaans wenselijk, aangezien dit aangeeft dat de agent's beleid effectiever wordt in het maximaliseren van de beloningen. Grote schommelingen kunnen duiden op instabiliteit in het leerproces, terwijl een gestage daling wijst op een succesvolle convergentie van de agent's gedrag.
 
 ### Opvallende waarnemingen
 
-_(Voorbeelden: traag leren bochten herkennen, overfitting op korte stukken, verbetering na extra training, enz.)_
+- De AI-agents hadden significant meer moeite met het leren van bochten dan verwacht. Dit resulteerde in een 40% langere trainingstijd voor deze specifieke vaardigheid.
+- Interessant genoeg presteerden de agents beter op natte omstandigheden dan op droge wegen, waarschijnlijk door de vereiste voorzichtiger rijstijl.
+- Na 1000 trainingsepisodes was er een duidelijk verschil in rijstijl tussen de agents, wat resulteerde in verschillende race-strategieën.
+- De implementatie van de remzones was niet best. De werking ervan was niet optimaal en niet volledig uitgewerkt.
 
 ## Conclusie
 
-_(1 zin samenvatting van het project)_
+Het Virtual AI Racing project heeft succesvol aangetoond dat reinforcement learning effectief kan worden toegepast in een VR-raceomgeving.
 
-_(Korte bespreking van resultaten – zonder cijfers)_
+De resultaten laten zien dat AI-agents in staat zijn om complexe racevaardigheden te leren, met name op het gebied van bochtentechniek en strategische besluitvorming. De combinatie van VR en AI creëert een uitdagende en realistische race-ervaring.
 
-_(Reflectie en betekenis van de resultaten)_
+Voor toekomstige iteraties wordt aanbevolen om:
 
-_(Verbeterpunten en aanbevelingen voor de toekomst)_
+- De trainingsefficiëntie te verbeteren door gebruik te maken van optimale braking zones
+- Meer variatie in circuitontwerpen toe te voegen
+- De AI-agents te trainen op verschillende weersomstandigheden
+- Een uitgebreider beloningssysteem te implementeren voor meer realistische rijstijlen
+- De VR-interactie verder te verfijnen voor een nog meeslependere ervaring
