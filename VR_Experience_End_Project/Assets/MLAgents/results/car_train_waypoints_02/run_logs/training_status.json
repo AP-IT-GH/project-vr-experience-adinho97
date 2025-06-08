@@ -1,0 +1,47 @@
+{
+    "Car": {
+        "checkpoints": [
+            {
+                "steps": 12005,
+                "file_path": "results\\car_train_waypoints_02\\Car\\Car-12005.onnx",
+                "reward": null,
+                "creation_time": 1749396035.1475508,
+                "auxillary_file_paths": [
+                    "results\\car_train_waypoints_02\\Car\\Car-12005.pt"
+                ]
+            },
+            {
+                "steps": 14693,
+                "file_path": "results\\car_train_waypoints_02\\Car\\Car-14693.onnx",
+                "reward": null,
+                "creation_time": 1749396310.4857314,
+                "auxillary_file_paths": [
+                    "results\\car_train_waypoints_02\\Car\\Car-14693.pt"
+                ]
+            },
+            {
+                "steps": 20447,
+                "file_path": "results\\car_train_waypoints_02\\Car\\Car-20447.onnx",
+                "reward": 30.960891649127007,
+                "creation_time": 1749397240.7575846,
+                "auxillary_file_paths": [
+                    "results\\car_train_waypoints_02\\Car\\Car-20447.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 20447,
+            "file_path": "results\\car_train_waypoints_02\\Car.onnx",
+            "reward": 30.960891649127007,
+            "creation_time": 1749397240.7575846,
+            "auxillary_file_paths": [
+                "results\\car_train_waypoints_02\\Car\\Car-20447.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

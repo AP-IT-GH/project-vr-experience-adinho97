@@ -35,13 +35,19 @@ public class AiCarController : MonoBehaviour {
             }
             Vector3 fwd = transform.TransformDirection(Vector3.forward);
             currentAngle = Vector3.SignedAngle(fwd, waypoints[currentWaypoint].position - transform.position, Vector3.up);
-            gasInput = Mathf.Clamp01((1f - Mathf.Abs(carController.speed *0.02f * currentAngle / maximumAngle)));
-            if(isInsideBraking) {
-                gasInput = -gasInput*((Mathf.Clamp01((carController.speed) / maximumSpeed) * 2 - 1f));
+            gasInput = Mathf.Clamp01((1f - Mathf.Abs(carController.speed * 0.02f * currentAngle / maximumAngle)));
+
+            float brakeInput = 0f;
+            if (isInsideBraking) {
+                float gewensteRemSnelheid = 20f; // pas aan naar wens
+                brakeInput = Mathf.Clamp01(carController.speed / gewensteRemSnelheid);
+                gasInput = 0f;
             }
+            // Buiten braking zone: brakeInput blijft 0, gasInput wordt weer berekend
+
             gasDampen = Mathf.Lerp(gasDampen, gasInput, Time.deltaTime * 3f);
-			carController.SetInputs(gasDampen, currentAngle, 0);
-			Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
+            carController.SetInputs(gasDampen, currentAngle, brakeInput);
+            Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow);
         }
     }
 }

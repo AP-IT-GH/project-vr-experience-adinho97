@@ -1,0 +1,56 @@
+{
+    "Car": {
+        "checkpoints": [
+            {
+                "steps": 166483,
+                "file_path": "results\\car_waypoints_08\\Car\\Car-166483.onnx",
+                "reward": 2185.976356059313,
+                "creation_time": 1749412082.127827,
+                "auxillary_file_paths": [
+                    "results\\car_waypoints_08\\Car\\Car-166483.pt"
+                ]
+            },
+            {
+                "steps": 190495,
+                "file_path": "results\\car_waypoints_08\\Car\\Car-190495.onnx",
+                "reward": null,
+                "creation_time": 1749412779.6364567,
+                "auxillary_file_paths": [
+                    "results\\car_waypoints_08\\Car\\Car-190495.pt"
+                ]
+            },
+            {
+                "steps": 206855,
+                "file_path": "results\\car_waypoints_08\\Car\\Car-206855.onnx",
+                "reward": null,
+                "creation_time": 1749413376.8996766,
+                "auxillary_file_paths": [
+                    "results\\car_waypoints_08\\Car\\Car-206855.pt"
+                ]
+            },
+            {
+                "steps": 237011,
+                "file_path": "results\\car_waypoints_08\\Car\\Car-237011.onnx",
+                "reward": null,
+                "creation_time": 1749413783.9556515,
+                "auxillary_file_paths": [
+                    "results\\car_waypoints_08\\Car\\Car-237011.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 237011,
+            "file_path": "results\\car_waypoints_08\\Car.onnx",
+            "reward": null,
+            "creation_time": 1749413783.9556515,
+            "auxillary_file_paths": [
+                "results\\car_waypoints_08\\Car\\Car-237011.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

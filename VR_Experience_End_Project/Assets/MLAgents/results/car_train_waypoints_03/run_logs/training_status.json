@@ -1,0 +1,65 @@
+{
+    "Car": {
+        "checkpoints": [
+            {
+                "steps": 356296,
+                "file_path": "results\\car_train_waypoints_03\\Car\\Car-356296.onnx",
+                "reward": 22.678538393694907,
+                "creation_time": 1749399654.5437915,
+                "auxillary_file_paths": [
+                    "results\\car_train_waypoints_03\\Car\\Car-356296.pt"
+                ]
+            },
+            {
+                "steps": 380320,
+                "file_path": "results\\car_train_waypoints_03\\Car\\Car-380320.onnx",
+                "reward": null,
+                "creation_time": 1749404168.3722286,
+                "auxillary_file_paths": [
+                    "results\\car_train_waypoints_03\\Car\\Car-380320.pt"
+                ]
+            },
+            {
+                "steps": 415964,
+                "file_path": "results\\car_train_waypoints_03\\Car\\Car-415964.onnx",
+                "reward": -1.25,
+                "creation_time": 1749404551.298122,
+                "auxillary_file_paths": [
+                    "results\\car_train_waypoints_03\\Car\\Car-415964.pt"
+                ]
+            },
+            {
+                "steps": 417436,
+                "file_path": "results\\car_train_waypoints_03\\Car\\Car-417436.onnx",
+                "reward": null,
+                "creation_time": 1749404910.855038,
+                "auxillary_file_paths": [
+                    "results\\car_train_waypoints_03\\Car\\Car-417436.pt"
+                ]
+            },
+            {
+                "steps": 422166,
+                "file_path": "results\\car_train_waypoints_03\\Car\\Car-422166.onnx",
+                "reward": -0.5,
+                "creation_time": 1749405334.141021,
+                "auxillary_file_paths": [
+                    "results\\car_train_waypoints_03\\Car\\Car-422166.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 422166,
+            "file_path": "results\\car_train_waypoints_03\\Car.onnx",
+            "reward": -0.5,
+            "creation_time": 1749405334.141021,
+            "auxillary_file_paths": [
+                "results\\car_train_waypoints_03\\Car\\Car-422166.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
