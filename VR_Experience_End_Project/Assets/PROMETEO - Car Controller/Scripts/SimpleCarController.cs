@@ -26,13 +26,17 @@ public class SimpleCarController : MonoBehaviour
     public float brakeForce = 3000f;
     public float handbrakeDriftMultiplier = 2f;
 
+    // Publieke instantievariabele voor snelheid (m/s)
+    public float speed;
+
     private float motorInput;
     private float steerInput;
     private float brakeInput;
     private bool handbrake;
+    private float clutch;
 
     // Publieke functie voor AI/Agent input
-    public void SetInputs(float throttle, float steering, float brake)
+    public void SetInputs(float throttle, float steering,  float brake)
     {
         motorInput = Mathf.Clamp(throttle, -1f, 1f);
         steerInput = Mathf.Clamp(steering, -1f, 1f);
@@ -81,6 +85,18 @@ public class SimpleCarController : MonoBehaviour
             if (rightTireSmoke) rightTireSmoke.Stop();
             if (leftTireSkid) leftTireSkid.emitting = false;
             if (rightTireSkid) rightTireSkid.emitting = false;
+        }
+
+        // Snelheid berekenen (m/s)
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            speed = rb.linearVelocity.magnitude;
+        }
+        else
+        {
+            // Fallback: schat snelheid via wheel rpm
+            speed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000f;
         }
 
         // Wheel mesh animatie

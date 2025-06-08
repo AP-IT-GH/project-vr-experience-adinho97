@@ -13,6 +13,9 @@ public class CarAgent : Agent
     public int currentCheckpoint = 0;
     public float episodeStartTime;
 
+  
+
+    
     [Header("Training Settings")]
     public Transform[] checkpoints;
     public float maxTimePerEpisode = 60f;
@@ -21,12 +24,14 @@ public class CarAgent : Agent
     public float checkpointReward = 1f;
     public float crashPenalty = 0.5f;
 
+
     public override void Initialize()
     {
         carController = GetComponent<SimpleCarController>();
         carRigidbody = GetComponent<Rigidbody>();
         startPosition = transform.position;
         startRotation = transform.rotation;
+   
     }
 
     public override void OnEpisodeBegin()
@@ -72,7 +77,8 @@ public class CarAgent : Agent
         float throttle = actions.ContinuousActions[0];
         float steering = actions.ContinuousActions[1];
         float brake = actions.ContinuousActions[2];
-
+      
+      
         carController.SetInputs(throttle, steering, brake);
 
         AddReward(carRigidbody.linearVelocity.magnitude * 0.01f);
@@ -90,7 +96,7 @@ public class CarAgent : Agent
     {
         var continuousActionsOut = actionsOut.ContinuousActions;
         // Throttle: W/S
-        continuousActionsOut[0] = Input.GetKey(KeyCode.W) ? 1f : (Input.GetKey(KeyCode.S) ? -1f : 0f);
+        continuousActionsOut[0] = Input.GetKey(KeyCode.W) ? -1f : (Input.GetKey(KeyCode.S) ? 1f : 0f);
         // Steering: A/D
         continuousActionsOut[1] = Input.GetKey(KeyCode.A) ? -1f : (Input.GetKey(KeyCode.D) ? 1f : 0f);
         // Brake: Spatie
