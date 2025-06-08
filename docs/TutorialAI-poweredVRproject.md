@@ -152,6 +152,6 @@ Voor toekomstige iteraties wordt aanbevolen om:
 
 - De trainingsefficiëntie te verbeteren door gebruik te maken van optimale braking zones
 - Meer variatie in circuitontwerpen toe te voegen
-- De AI-agents te trainen op verschillende weersomstandigheden
+- Obstakels toevoegen
 - Een uitgebreider beloningssysteem te implementeren voor meer realistische rijstijlen
 - De VR-interactie verder te verfijnen voor een nog meeslependere ervaring
