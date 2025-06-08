@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1749406133",
+        "python_version": "3.9.21 (main, Dec 11 2024, 16:35:24) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\Adria\\anaconda3\\envs\\VRenvironment\\Scripts\\mlagents-learn config/Car.yaml --run-id=CarTraining_v3",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1749406200"
+    },
+    "total": 66.0697461,
+    "count": 1,
+    "self": 0.007709300000001917,
+    "children": {
+        "run_training.setup": {
+            "total": 0.07181670000000007,
+            "count": 1,
+            "self": 0.07181670000000007
+        },
+        "TrainerController.start_learning": {
+            "total": 65.9902201,
+            "count": 1,
+            "self": 9.770000001196877e-05,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 65.9901048,
+                    "count": 1,
+                    "self": 65.9901048
+                },
+                "TrainerController._save_models": {
+                    "total": 1.7599999992512494e-05,
+                    "count": 1,
+                    "self": 1.7599999992512494e-05
+                }
+            }
+        }
+    }
+}

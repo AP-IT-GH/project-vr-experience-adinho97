@@ -13,9 +13,16 @@ public class WaypointContainer : MonoBehaviour {
         {
           
                 waypoints.Add(tr);
-        
+            Debug.Log("Waypoint toegevoegd: " + tr.name);
+
         }
-        waypoints.Remove(waypoints[0]);
+        if (waypoints.Count > 0)
+        {
+            Debug.Log("Eerste element verwijderd: " + waypoints[0].name);
+            waypoints.Remove(waypoints[0]);
+        }
+
+        Debug.Log("Totaal aantal waypoints: " + waypoints.Count);
     }
 
     // Update is called once per frame
