@@ -12,7 +12,7 @@ In deze tutorial leer je hoe je het project van nul opbouwt: van installatie en 
 
 - Unity: 6000.0.36f1
 - Python: 3.9.21
-- ML-Agents: 1.0.0
+- ML-Agents: 3.0.0
 - TensorFlow: 2.x
 - Oculus Integration (Unity Asset Store): ??????????
 - VSCode + Python- en C#-extensies
