@@ -120,7 +120,8 @@ _(Nog niet van toepassing – aanvullen indien het eindproduct afwijkt van plan)
 
 ### Tensorboard-grafieken
 
-_(Voeg hier grafieken in zodra training is voltooid – let op: assen, titels en legenda verplicht)_
+![TensorBoard-grafieken](tensorboard.png)
+![TensorBoard-grafieken 2](tensorboard2.png)
 
 ### Beschrijving van de grafieken
 
