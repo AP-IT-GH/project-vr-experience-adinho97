@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A4C9ABC5-FD39-0FC4-8879-3EAB5DEEE153}|Assembly-CSharp.csproj|c:\\users\\swagn\\documents\\s2\\vr_exp\\project\\vr_experience_end_project\\assets\\carinputfromactions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4C9ABC5-FD39-0FC4-8879-3EAB5DEEE153}|Assembly-CSharp.csproj|solutionrelative:assets\\carinputfromactions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A4C9ABC5-FD39-0FC4-8879-3EAB5DEEE153}|Assembly-CSharp.csproj|c:\\users\\swagn\\documents\\s2\\vr_exp\\project\\vr_experience_end_project\\assets\\vrjoystickcarinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A4C9ABC5-FD39-0FC4-8879-3EAB5DEEE153}|Assembly-CSharp.csproj|solutionrelative:assets\\vrjoystickcarinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -71,6 +75,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CarInputFromActions.cs",
+              "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\CarInputFromActions.cs",
+              "RelativeDocumentMoniker": "Assets\\CarInputFromActions.cs",
+              "ToolTip": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\CarInputFromActions.cs",
+              "RelativeToolTip": "Assets\\CarInputFromActions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T03:25:54.098Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "VRJoystickCarInput.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\VRJoystickCarInput.cs",
               "RelativeDocumentMoniker": "Assets\\VRJoystickCarInput.cs",
@@ -83,7 +100,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "BrakingZone.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\MLAgents\\Scripts\\BrakingZone.cs",
               "RelativeDocumentMoniker": "Assets\\MLAgents\\Scripts\\BrakingZone.cs",
@@ -95,7 +112,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "SimpleCarController.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\PROMETEO - Car Controller\\Scripts\\SimpleCarController.cs",
               "RelativeDocumentMoniker": "Assets\\PROMETEO - Car Controller\\Scripts\\SimpleCarController.cs",
@@ -107,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "AiCarController.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\MLAgents\\Scripts\\AiCarController.cs",
               "RelativeDocumentMoniker": "Assets\\MLAgents\\Scripts\\AiCarController.cs",
@@ -119,7 +136,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "WaypointContainer.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\MLAgents\\Scripts\\WaypointContainer.cs",
               "RelativeDocumentMoniker": "Assets\\MLAgents\\Scripts\\WaypointContainer.cs",
@@ -131,7 +148,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ActionSegment.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Library\\PackageCache\\com.unity.ml-agents@2b4ded88494d\\Runtime\\Actuators\\ActionSegment.cs",
               "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.ml-agents@2b4ded88494d\\Runtime\\Actuators\\ActionSegment.cs",
@@ -144,7 +161,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "CoroutineRunner.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Library\\PackageCache\\com.unity.visualscripting@1b53f46e931b\\Runtime\\VisualScripting.Core\\Utilities\\CoroutineRunner.cs",
               "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.visualscripting@1b53f46e931b\\Runtime\\VisualScripting.Core\\Utilities\\CoroutineRunner.cs",
@@ -157,7 +174,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "PrometeoCarController.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\PROMETEO - Car Controller\\Scripts\\PrometeoCarController.cs",
               "RelativeDocumentMoniker": "Assets\\PROMETEO - Car Controller\\Scripts\\PrometeoCarController.cs",
@@ -169,7 +186,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "CarAgent.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\MLAgents\\Scripts\\CarAgent.cs",
               "RelativeDocumentMoniker": "Assets\\MLAgents\\Scripts\\CarAgent.cs",
@@ -181,7 +198,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Lit.shader",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Library\\PackageCache\\com.unity.render-pipelines.universal@a394fe607f89\\Shaders\\Lit.shader",
               "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.render-pipelines.universal@a394fe607f89\\Shaders\\Lit.shader",
@@ -194,7 +211,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "CameraFollow.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\PROMETEO - Car Controller\\Scripts\\CameraFollow.cs",
               "RelativeDocumentMoniker": "Assets\\PROMETEO - Car Controller\\Scripts\\CameraFollow.cs",
@@ -206,7 +223,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Readme.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\TutorialInfo\\Scripts\\Readme.cs",
               "RelativeDocumentMoniker": "Assets\\TutorialInfo\\Scripts\\Readme.cs",
@@ -218,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "CameraFlow.cs",
               "DocumentMoniker": "C:\\Users\\swagn\\Documents\\S2\\VR_EXP\\project\\VR_Experience_End_Project\\Assets\\CameraFlow.cs",
               "RelativeDocumentMoniker": "Assets\\CameraFlow.cs",
