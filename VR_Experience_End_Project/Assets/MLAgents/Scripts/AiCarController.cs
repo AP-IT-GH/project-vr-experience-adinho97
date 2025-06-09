@@ -39,7 +39,7 @@ public class AiCarController : MonoBehaviour {
 
             float brakeInput = 0f;
             if (isInsideBraking) {
-                float gewensteRemSnelheid = 20f; // pas aan naar wens
+                float gewensteRemSnelheid = 5f; // pas aan naar wens
                 brakeInput = Mathf.Clamp01(carController.speed / gewensteRemSnelheid);
                 gasInput = 0f;
             }

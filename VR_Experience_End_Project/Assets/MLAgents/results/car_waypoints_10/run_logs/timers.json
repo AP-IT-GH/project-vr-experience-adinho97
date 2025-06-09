@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1749433947",
+        "python_version": "3.9.21 (main, Dec 11 2024, 16:35:24) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\omari\\anaconda3\\envs\\mlagents-env\\Scripts\\mlagents-learn config/Car.yaml --run-id=car_waypoints_10 --force",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1749434009"
+    },
+    "total": 62.485906899999996,
+    "count": 1,
+    "self": 0.014636499999994612,
+    "children": {
+        "run_training.setup": {
+            "total": 0.2159077000000007,
+            "count": 1,
+            "self": 0.2159077000000007
+        },
+        "TrainerController.start_learning": {
+            "total": 62.2553627,
+            "count": 1,
+            "self": 0.00020410000000481432,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 62.2551351,
+                    "count": 1,
+                    "self": 62.2551351
+                },
+                "TrainerController._save_models": {
+                    "total": 2.3499999997511622e-05,
+                    "count": 1,
+                    "self": 2.3499999997511622e-05
+                }
+            }
+        }
+    }
+}

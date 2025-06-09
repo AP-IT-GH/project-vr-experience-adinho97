@@ -1,0 +1,54 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1749483937",
+        "python_version": "3.9.21 (main, Dec 11 2024, 16:35:24) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\omari\\anaconda3\\envs\\mlagents-env\\Scripts\\mlagents-learn config/Car.yaml --run-id=car_checkpoints_12 --resume",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1749483950"
+    },
+    "total": 13.308440000000001,
+    "count": 1,
+    "self": 0.012978500000000892,
+    "children": {
+        "run_training.setup": {
+            "total": 0.17152100000000026,
+            "count": 1,
+            "self": 0.17152100000000026
+        },
+        "TrainerController.start_learning": {
+            "total": 13.1239405,
+            "count": 1,
+            "self": 0.00020890000000051145,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 12.9241888,
+                    "count": 1,
+                    "self": 12.9241888
+                },
+                "trainer_threads": {
+                    "total": 1.1999999998124622e-06,
+                    "count": 1,
+                    "self": 1.1999999998124622e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 0.19954159999999987,
+                    "count": 1,
+                    "self": 0.020612299999999806,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 0.17892930000000007,
+                            "count": 1,
+                            "self": 0.17892930000000007
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

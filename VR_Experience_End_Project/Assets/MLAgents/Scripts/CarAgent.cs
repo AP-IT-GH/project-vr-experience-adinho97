@@ -12,19 +12,23 @@ public class CarAgent : Agent
     public Quaternion startRotation;
     public float episodeStartTime;
 
-    [Header("Waypoint Settings")]
-    public List<Transform> waypoints;
-    public int currentWaypoint = 0;
-    public float waypointRange = 5f;
-    private float previousDistanceToWaypoint;
+    [Header("Checkpoint Settings")]
+    public Transform[] checkpoints; // Handmatig vullen in Inspector
+    public Transform checkpointContainer; // (optioneel, niet meer gebruikt)
+    public int currentCheckpoint = 0;
+    public float checkpointRange = 5f;
+    private float previousDistanceToCheckpoint;
 
     public float maxTimePerEpisode = 60f;
     public float speedRewardMultiplier = 0.15f;
-    public float waypointReward = 2f;
+    public float checkpointReward = 2f;
     public float crashPenalty = 2f;
 
     public float brakingZoneSpeedLimit;
-    private bool isInsideBraking;
+    public bool isInsideBraking;
+    public bool hitTheWall;
+    public bool hitCheckpoint;
+    private float brakingSteerDirection = 0f;
 
     public override void Initialize()
     {
@@ -41,12 +45,12 @@ public class CarAgent : Agent
         transform.rotation = startRotation;
         carRigidbody.linearVelocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
-        currentWaypoint = 0;
+        currentCheckpoint = 0;
         episodeStartTime = Time.time;
-        if (waypoints != null && waypoints.Count > 0)
-            previousDistanceToWaypoint = Vector3.Distance(transform.position, waypoints[currentWaypoint].position);
+        if (checkpoints != null && checkpoints.Length > 0)
+            previousDistanceToCheckpoint = Vector3.Distance(transform.position, checkpoints[currentCheckpoint].position);
         else
-            previousDistanceToWaypoint = 0f;
+            previousDistanceToCheckpoint = 0f;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -57,15 +61,15 @@ public class CarAgent : Agent
         sensor.AddObservation(carRigidbody.angularVelocity);
         // Add car's rotation (4)
         sensor.AddObservation(transform.rotation);
-        // Add distance and direction to next waypoint (1+3)
-        if (waypoints != null && waypoints.Count > 0)
+        // Add distance and direction to next checkpoint (1+3)
+        if (checkpoints != null && checkpoints.Length > 0)
         {
-            sensor.AddObservation(Vector3.Distance(transform.position, waypoints[currentWaypoint].position));
-            sensor.AddObservation(waypoints[currentWaypoint].position - transform.position);
-            // Extra observatie: hoek naar waypoint (1)
-            Vector3 toWaypoint = (waypoints[currentWaypoint].position - transform.position).normalized;
-            float angleToWaypoint = Vector3.SignedAngle(transform.forward, toWaypoint, Vector3.up) / 180f; // tussen -1 en 1
-            sensor.AddObservation(angleToWaypoint);
+            sensor.AddObservation(Vector3.Distance(transform.position, checkpoints[currentCheckpoint].position));
+            sensor.AddObservation(checkpoints[currentCheckpoint].position - transform.position);
+            // Extra observatie: hoek naar checkpoint (1)
+            Vector3 toCheckpoint = (checkpoints[currentCheckpoint].position - transform.position).normalized;
+            float angleToCheckpoint = Vector3.SignedAngle(transform.forward, toCheckpoint, Vector3.up) / 180f; // tussen -1 en 1
+            sensor.AddObservation(angleToCheckpoint);
         }
         else
         {
@@ -77,56 +81,70 @@ public class CarAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        float throttle = actions.ContinuousActions[0];
-        float steering = actions.ContinuousActions[1];
-        float brake = actions.ContinuousActions[2];
-        carController.SetInputs(throttle, steering, brake);
+        float throttle = 0f;
+        float steering = 0f;
+        float brake = 0f;
 
-        // Beloon elke beweging (niet achteruit, om te starten)
-        if (throttle > 0)
+        // Discrete actions: 0 = niks, 1 = vooruit, 2 = achteruit
+        switch (actions.DiscreteActions[0])
         {
-            AddReward(0.5f);
+            case 0: throttle = 0f; break;
+            case 1: throttle = 1f; break;
+            // case 2: throttle = -1f; break;
+        }
+
+        if (isInsideBraking)
+        {
+
+            switch (actions.DiscreteActions[1])
+            {
+                case 0:
+                    steering = 0f;
+                    AddReward(-0.001f);
+                    break;
+                case 1:
+                    steering = 1f;
+                    if (hitCheckpoint)
+                    {
+                        AddReward(0.2f);
+                    }
+                    else
+                    {
+                        AddReward(-0.2f);
+                    }
+                    break;
+                case 2:
+                    steering = -1f;
+                    if (hitCheckpoint)
+                    {
+                        AddReward(0.2f);
+                    }
+                    else
+                    {
+                        AddReward(-0.2f);
+                    }
+                    break;
+            }
+            // Reset hitCheckpoint na gebruik
+            hitCheckpoint = false;
+
+            
+
         }
         else
-        {        // Straf stilstand
-
-            AddReward(-0.0005f); // of zet hem tijdelijk uit
+        {
+            steering = 0f;
         }
 
-        // Richting naar volgend waypoint
-        if (waypoints != null && waypoints.Count > 0)
+        carController.SetInputs(throttle, steering, brake);
+
+        // Progress rewards buiten braking zone
+        if (!isInsideBraking && checkpoints != null && checkpoints.Length > 0 && currentCheckpoint < checkpoints.Length)
         {
-            Vector3 toWaypoint = (waypoints[currentWaypoint].position - transform.position).normalized;
-            float speedToWaypoint = Vector3.Dot(carRigidbody.linearVelocity, toWaypoint);
-            AddReward(speedToWaypoint * 0.2f); // of zelfs 0.3f tijdelijk
-
-            // Debug: DrawRay naar het volgende waypoint
-            Debug.DrawRay(transform.position, waypoints[currentWaypoint].position - transform.position, Color.yellow, 0.1f);
-
-            // Reward voor naderen en halen van waypoint
-            float distanceToWaypoint = Vector3.Distance(transform.position, waypoints[currentWaypoint].position);
-            AddReward((previousDistanceToWaypoint - distanceToWaypoint) * 0.2f);
-            previousDistanceToWaypoint = distanceToWaypoint;
-
-            if (distanceToWaypoint < waypointRange)
-            {
-                AddReward(waypointReward);
-                currentWaypoint++;
-                if (currentWaypoint >= waypoints.Count)
-                {
-                    AddReward(1.5f); // grote reward voor ronde afmaken
-                    EndEpisode();
-                }
-                else
-                {
-                    // Straf voor het overslaan van een waypoint
-                    previousDistanceToWaypoint = Vector3.Distance(transform.position, waypoints[currentWaypoint].position);
-                    AddReward(-1f);
-                }
-            }
-
-            float angleToWaypoint = Vector3.SignedAngle(transform.forward, toWaypoint, Vector3.up) / 180f;
-            AddReward((1f - Mathf.Abs(angleToWaypoint)) * 0.02f); // Extra bonus voor goed insturen
+            float distanceToCheckpoint = Vector3.Distance(transform.position, checkpoints[currentCheckpoint].position);
+            float progress = previousDistanceToCheckpoint - distanceToCheckpoint;
+            AddReward(progress * 0.1f);
+            previousDistanceToCheckpoint = distanceToCheckpoint;
         }
 
         // Episode timeout
@@ -135,28 +153,20 @@ public class CarAgent : Agent
             EndEpisode();
             return;
         }
-
-        AddReward(carRigidbody.linearVelocity.magnitude * 0.3f); // hogere multiplier
-
-        if (isInsideBraking && carController.speed > brakingZoneSpeedLimit)
-        {
-            AddReward(-0.1f); // Straf voor te hard rijden in braking zone
-        }
-        else if (isInsideBraking && carController.speed <= brakingZoneSpeedLimit)
-        {
-            AddReward(0.05f); // Bonus voor netjes remmen
-        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        var continuousActionsOut = actionsOut.ContinuousActions;
-        // Throttle: W/S
-        continuousActionsOut[0] = Input.GetKey(KeyCode.W) ? 1f : (Input.GetKey(KeyCode.S) ? -1f : 0f);
-        // Steering: A/D
-        continuousActionsOut[1] = Input.GetKey(KeyCode.A) ? -1f : (Input.GetKey(KeyCode.D) ? 1f : 0f);
-        // Brake: Spatie
-        continuousActionsOut[2] = Input.GetKey(KeyCode.Space) ? 1f : 0f;
+        var discreteActionsOut = actionsOut.DiscreteActions;
+        // Forward
+        if (Input.GetKey(KeyCode.W)) discreteActionsOut[0] = 1;
+        else if (Input.GetKey(KeyCode.S)) discreteActionsOut[0] = 2;
+        else discreteActionsOut[0] = 0;
+
+        // Steering
+        if (Input.GetKey(KeyCode.D)) discreteActionsOut[1] = 1;
+        else if (Input.GetKey(KeyCode.A)) discreteActionsOut[1] = 2;
+        else discreteActionsOut[1] = 0;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -165,8 +175,63 @@ public class CarAgent : Agent
         if (collision.gameObject.CompareTag("Wall") )
         {
             AddReward(-5f);
+            hitTheWall = true;
+        } else {
+            hitTheWall = false;
+        }
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"Trigger entered: {other.name} with tag: {other.tag}");
+        
+        // Check if we hit a checkpoint
+        if (other.CompareTag("Checkpoint"))
+        {
+            if (Vector3.Distance(transform.position, other.transform.position) < 10f)
+            {
+                hitCheckpoint = true;
+            }
+            else
+            {
+                hitCheckpoint = false;
+            }
           
-         
+            Debug.Log($"Checkpoint hit: {other.name}");
+            int checkpointIndex = System.Array.IndexOf(checkpoints, other.transform);
+            Debug.Log($"Checkpoint index: {checkpointIndex}, Current checkpoint: {currentCheckpoint}");
+            
+            if (checkpointIndex == currentCheckpoint)
+            {
+                // Correct checkpoint
+                Debug.Log($"Correct checkpoint reached! Reward: {checkpointReward}");
+                AddReward(checkpointReward);
+                currentCheckpoint++;
+                // Zet de distance voor de volgende checkpoint
+                if (currentCheckpoint < checkpoints.Length)
+                {
+                    previousDistanceToCheckpoint = Vector3.Distance(transform.position, checkpoints[currentCheckpoint].position);
+                }
+                if (currentCheckpoint >= checkpoints.Length)
+                {
+                    Debug.Log("All checkpoints completed! Episode ending.");
+                    AddReward(5f); // grote reward voor ronde afmaken
+                    EndEpisode();
+                }
+            }
+            else if (checkpointIndex >= 0)
+            {
+                // Straf voor het teruggaan naar een vorig of verkeerd checkpoint
+                Debug.Log($"Wrong checkpoint! Expected: {currentCheckpoint}, Got: {checkpointIndex}. Penalty applied.");
+                AddReward(-1f);
+            }
         }
     }
+
+    public void SetBrakingSteerDirection(float dir)
+    {
+        brakingSteerDirection = dir;
+    }
+    
 } 

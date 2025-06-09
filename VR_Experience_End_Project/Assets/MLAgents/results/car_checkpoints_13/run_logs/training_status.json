@@ -1,0 +1,65 @@
+{
+    "Car": {
+        "checkpoints": [
+            {
+                "steps": 2783760,
+                "file_path": "results\\car_checkpoints_13\\Car\\Car-2783760.onnx",
+                "reward": null,
+                "creation_time": 1749494116.8682268,
+                "auxillary_file_paths": [
+                    "results\\car_checkpoints_13\\Car\\Car-2783760.pt"
+                ]
+            },
+            {
+                "steps": 2820552,
+                "file_path": "results\\car_checkpoints_13\\Car\\Car-2820552.onnx",
+                "reward": null,
+                "creation_time": 1749494615.2417276,
+                "auxillary_file_paths": [
+                    "results\\car_checkpoints_13\\Car\\Car-2820552.pt"
+                ]
+            },
+            {
+                "steps": 2857344,
+                "file_path": "results\\car_checkpoints_13\\Car\\Car-2857344.onnx",
+                "reward": null,
+                "creation_time": 1749494987.590062,
+                "auxillary_file_paths": [
+                    "results\\car_checkpoints_13\\Car\\Car-2857344.pt"
+                ]
+            },
+            {
+                "steps": 2930916,
+                "file_path": "results\\car_checkpoints_13\\Car\\Car-2930916.onnx",
+                "reward": null,
+                "creation_time": 1749495718.5890644,
+                "auxillary_file_paths": [
+                    "results\\car_checkpoints_13\\Car\\Car-2930916.pt"
+                ]
+            },
+            {
+                "steps": 2967708,
+                "file_path": "results\\car_checkpoints_13\\Car\\Car-2967708.onnx",
+                "reward": null,
+                "creation_time": 1749501457.2270308,
+                "auxillary_file_paths": [
+                    "results\\car_checkpoints_13\\Car\\Car-2967708.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2967708,
+            "file_path": "results\\car_checkpoints_13\\Car.onnx",
+            "reward": null,
+            "creation_time": 1749501457.2270308,
+            "auxillary_file_paths": [
+                "results\\car_checkpoints_13\\Car\\Car-2967708.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
