@@ -8,6 +8,7 @@ TagManager:
   - Checkpoint
   - Waypoint
   - BrakingZone
+  - FinishCheckpoint
   layers:
   - Default
   - TransparentFX

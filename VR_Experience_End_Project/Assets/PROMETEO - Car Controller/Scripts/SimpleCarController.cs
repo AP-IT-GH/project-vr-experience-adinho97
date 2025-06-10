@@ -21,9 +21,9 @@ public class SimpleCarController : MonoBehaviour
     public TrailRenderer rightTireSkid;
 
     [Header("Car Settings")]
-    public float maxMotorTorque = 1.5f;
-    public float maxSteerAngle = 1f;
-    public float brakeForce = 2f;
+    public float maxMotorTorque = 1500f;
+    public float maxSteerAngle = 30f;
+    public float brakeForce = 3000f;
     public float handbrakeDriftMultiplier = 2f;
 
     // Publieke instantievariabele voor snelheid (m/s)
@@ -34,14 +34,8 @@ public class SimpleCarController : MonoBehaviour
     private float brakeInput;
     private bool handbrake;
     private float clutch;
-    private float smoothSteerInput = 0f;
-
-    void Start()
-    {
-        Rigidbody rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = new Vector3(0, -0.5f, 0); // lower Y = more stable
-    }
-
+    private float originalMotorTorque;
+   
 
     // Publieke functie voor AI/Agent input
     public void SetInputs(float throttle, float steering,  float brake)
@@ -49,45 +43,25 @@ public class SimpleCarController : MonoBehaviour
         motorInput = Mathf.Clamp(throttle, -1f, 1f);
         steerInput = Mathf.Clamp(steering, -1f, 1f);
         brakeInput = Mathf.Clamp01(brake);
-        //handbrake = brakeInput > 0.9f; // optioneel: handrem bij hoge remwaarde
+        handbrake = brakeInput > 0.9f; // optioneel: handrem bij hoge remwaarde
+    }
+
+    void Awake()
+    {
+        originalMotorTorque = maxMotorTorque;
     }
 
     void FixedUpdate()
     {
         // Motor
-        float targetMotor = motorInput * maxMotorTorque;
-        float currentMotor = frontLeftCollider.motorTorque;
-        float motor = Mathf.Lerp(currentMotor, targetMotor, Time.fixedDeltaTime * 7f); // 5f = smoothness
-
+        float motor = motorInput * maxMotorTorque;
         frontLeftCollider.motorTorque = motor;
         frontRightCollider.motorTorque = motor;
 
         // Sturen
-
-        float targetSteer = steerInput * maxSteerAngle;
-        float currentSteer = frontLeftCollider.steerAngle;
-
-        float steer;
-
-        if (Mathf.Approximately(steerInput, 0f))
-        {
-            // Instantly return to 0 if no input
-            steer = 0f;
-        }
-        else
-        {
-            // Smooth turning while input is active
-            float maxSteerSpeedPerSecond = 10f;
-            float maxSteerChange = maxSteerSpeedPerSecond * Time.fixedDeltaTime;
-            steer = Mathf.MoveTowards(currentSteer, targetSteer, maxSteerChange);
-        }
-
+        float steer = steerInput * maxSteerAngle;
         frontLeftCollider.steerAngle = steer;
         frontRightCollider.steerAngle = steer;
-
-
-
-
 
         // Remmen
         float brake = brakeInput * brakeForce;
@@ -131,18 +105,7 @@ public class SimpleCarController : MonoBehaviour
             // Fallback: schat snelheid via wheel rpm
             speed = (2 * Mathf.PI * frontLeftCollider.radius * frontLeftCollider.rpm * 60) / 1000f;
         }
-        float maxSpeed = 14f; // meters per second
-
-        if (rb.linearVelocity.magnitude > maxSpeed)
-        {
-            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
-        }
-
-        float downforce = speed * 50f; // tune 50f to your liking
-        rb.AddForce(-transform.up * downforce);
-
-        float speedKmh = rb.linearVelocity.magnitude * 3.6f;
-
+       
         // Wheel mesh animatie
         UpdateWheelMesh(frontLeftCollider, frontLeftMesh);
         UpdateWheelMesh(frontRightCollider, frontRightMesh);
@@ -157,5 +120,13 @@ public class SimpleCarController : MonoBehaviour
         col.GetWorldPose(out pos, out rot);
         mesh.position = pos;
         mesh.rotation = rot;
+    }
+
+    public void SetBrakingZoneTorque(bool inBrakingZone)
+    {
+        if (inBrakingZone)
+            maxMotorTorque = 100f;
+        else
+            maxMotorTorque = originalMotorTorque;
     }
 } 

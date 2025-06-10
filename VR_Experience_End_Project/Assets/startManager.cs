@@ -6,7 +6,7 @@ public class startManager : MonoBehaviour
 {
     public void LoadSceneVR()
     {
-        SceneManager.LoadScene("VR_level");
+        SceneManager.LoadScene("VR_level_1");
     }
 
     public void LoadScenePC()

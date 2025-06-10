@@ -12,6 +12,9 @@ public class BrakingZone : MonoBehaviour
 		if (car)
 		{
 			car.isInsideBraking = true;
+			var carController = car.GetComponent<SimpleCarController>();
+			if (carController != null)
+				carController.SetBrakingZoneTorque(true);
 		}
 
 		CarAgent agent = other.GetComponent<CarAgent>();
@@ -19,6 +22,7 @@ public class BrakingZone : MonoBehaviour
 		{
 			agent.isInsideBraking = true;
 			agent.SetBrakingSteerDirection(direction == BrakingDirection.Left ? -1f : 1f);
+		//	agent.SetBrakingZoneTorque(true);
 		}
 	}
 
@@ -28,6 +32,9 @@ public class BrakingZone : MonoBehaviour
 		if (car)
 		{
 			car.isInsideBraking = false;
+			var carController = car.GetComponent<SimpleCarController>();
+			if (carController != null)
+				carController.SetBrakingZoneTorque(false);
 		}
 
 		CarAgent agent = other.GetComponent<CarAgent>();
@@ -35,6 +42,7 @@ public class BrakingZone : MonoBehaviour
 		{
 			agent.isInsideBraking = false;
 			agent.SetBrakingSteerDirection(0f);
+			// agent.SetBrakingZoneTorque(false);
 		}
 	}
 }
