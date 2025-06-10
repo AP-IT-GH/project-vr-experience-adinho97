@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(SimpleCarController))]
-public class CarInputFromActions : MonoBehaviour
+public class UniversalCarInput : MonoBehaviour
 {
     private SimpleCarController car;
-    private NewControls controls;  // <--- your generated input class
+    private NewControls controls;
 
     void Awake()
     {
@@ -31,6 +32,9 @@ public class CarInputFromActions : MonoBehaviour
         Vector2 move = controls.Car.Move.ReadValue<Vector2>();
         float brake = controls.Car.Brake.ReadValue<float>();
 
-        car.SetInputs(move.y, move.x, brake);
+        float throttle = move.y;   // Up/Down from stick or W/S
+        float steering = move.x;   // Left/Right from stick or A/D
+
+        car.SetInputs(throttle, steering, brake);
     }
 }
